@@ -5,9 +5,11 @@ require 'rack/test'
 require 'capybara/rspec'
 require 'capybara/dsl'
 
-if ActiveRecord::Migrator.needs_migration?
+if ActiveRecord::Base.connection.migration_context.needs_migration?
   raise 'Migrations are pending. Run `rake db:migrate` to resolve the issue.'
 end
+
+# ActiveRecord::Base.connection.migration_context.needs_migration?
 
 
 ActiveRecord::Base.logger = nil
